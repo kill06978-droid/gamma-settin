@@ -1,25 +1,21 @@
 name: Build Mod
 
 on:
-  workflow_dispatch:
   push:
-    branches: [ "**" ]
+    branches: [ "main" ]
+  workflow_dispatch:
 
 jobs:
   build:
-    name: Build (Windows)
+    name: Build Mod (Windows)
     runs-on: windows-latest
+
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
-      - name: Build the mod
+      - name: Build Mod
         uses: geode-sdk/build-geode-mod@main
         with:
-          combine: true
-          target: Windows
-
-      - name: Upload .geode
-        uses: actions/upload-artifact@v4
-        with:
-          name: gamma-settings-geode
-          path: ./*.geode
+          platform: win
